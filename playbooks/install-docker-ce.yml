@@ -1,0 +1,53 @@
+# Install Docker Community Edition for Centos 7x
+
+- hosts: swarm
+
+  tasks:
+
+    # Remove old Docker versions and metadata
+
+    - name: Remove old docker versions
+      shell: yum remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+      become: true
+    
+    - name: Remove old docker metadata
+      shell: rm -rf /var/lib/docker
+      become: true
+
+    
+    # Set up Docker repository
+
+    - name: Install dependencies
+      shell: yum install -y yum-utils device-mapper-persistent-data lvm2
+      become: true
+
+    - name: Install Docker repository
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+      become: true
+    # Install Docker
+
+    - name: Install Docker
+      shell: yum install -y docker-ce docker-ce-cli containerd.io
+      become: true
+    # Enable and Start Docker through systemctl
+
+    - name: Enable Docker service
+      shell: systemctl enable docker
+      become: true
+
+    - name: Start Docker service
+      shell: systemctl start docker
+      become: true
+
+
+
+
+
+
+    # - name: Add the user and add to wheel
+    #   user:
+    #     name: "{{ user }}"
+    #     groups: sshallowed,wheel
+    #     append: yes
+    #   when: wheel == "yes"
+    #   become: true

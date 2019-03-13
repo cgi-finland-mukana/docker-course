@@ -1,0 +1,36 @@
+# Install Docker Community Edition for Centos 7x
+
+- hosts: swarm
+
+  vars_prompt:
+
+    - name: "timeserver1"
+      prompt: "Primary timeserver ip"
+      private: no
+
+    - name: "timeserver2"
+      prompt: "Secondary timeserver ip"
+      private: no
+
+  tasks:
+
+    # Remove old Docker versions and metadata
+
+    - name: Remove old docker versions
+      shell: yum -y install chrony
+      become: true
+
+    - template:
+        src: ./configurations/chrony/chrony.conf
+        dest: /etc/chrony.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable chronyd
+      shell: systemctl enable chronyd
+      become: true
+    
+    - name: Start chronyd
+      shell: systemctl start chronyd
+      become: true

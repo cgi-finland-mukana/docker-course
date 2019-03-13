@@ -1,0 +1,10 @@
+[swarm]
+10.0.0.6 # dockerhost1
+10.0.0.7 # dockerhost2
+
+
+[dockermanagers]
+10.0.0.6 # dockerhost1
+10.0.0.7 # dockerhost2
+
+#[dockerworkers]
