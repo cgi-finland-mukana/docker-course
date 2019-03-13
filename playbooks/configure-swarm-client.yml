@@ -1,0 +1,26 @@
+# Install Docker Community Edition for Centos 7x
+
+- hosts: joinswarm
+
+  vars_prompt:
+
+    - name: "jointoken"
+      prompt: "Swarm join token"
+      private: no
+
+    - name: "manaip"
+      prompt: "Manager IP"
+      private: no
+
+    - name: "manaport"
+      prompt: "Manager Port"
+      default: "2377"
+      private: no
+
+  tasks:
+
+    # Remove old Docker versions and metadata
+
+    - name: Join Client to swarm
+      shell: docker swarm join --token {{ jointoken }} {{ manaip }}:{{ manaport }}
+      become: true

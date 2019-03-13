@@ -6,22 +6,24 @@
 
     - name: "timeserver1"
       prompt: "Primary timeserver ip"
+      default: "0.fi.pool.ntp.org"
       private: no
 
     - name: "timeserver2"
       prompt: "Secondary timeserver ip"
+      default: "1.fi.pool.ntp.org"
       private: no
 
   tasks:
 
     # Remove old Docker versions and metadata
 
-    - name: Remove old docker versions
+    - name: Install chrony
       shell: yum -y install chrony
       become: true
 
     - template:
-        src: ./configurations/chrony/chrony.conf
+        src: configurations/chrony/chrony.conf
         dest: /etc/chrony.conf
         owner: root
         group: root

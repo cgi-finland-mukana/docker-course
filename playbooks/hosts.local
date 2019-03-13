@@ -1,0 +1,12 @@
+[swarm]
+dockerserver1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=10001
+dockerserver2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=10002
+
+[joinswarm]
+dockerserver2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=10002
+
+[dockermanagers]
+master ansible_ssh_host=127.0.0.1 ansible_ssh_port=10001
+slave ansible_ssh_host=127.0.0.1 ansible_ssh_port=10002
+
+#[dockerworkers]

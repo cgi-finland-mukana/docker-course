@@ -88,8 +88,19 @@ ansible-playbook -i playbooks/hosts -k -K -u root playbooks/install-docker-ce.ym
 
 ## Configuring Docker Swarm
 
+Decide which node will be the first manager and create the swarm. Then run this command on the first manager to do it:
 
-Write here about configuring docker swarm
+```bash
+docker swarm init --advertise-addr <ip|interface:port>
+```
+
+For example:
+```bash
+docker swarm init --advertise-addr 10.0.0.6:2377
+```
+
+If the node cannot connect to swarm, check that the host is able to connect to the docker manager host. For example a firewall might be blocking the port.
+
 
 ---
 
