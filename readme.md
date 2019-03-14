@@ -162,17 +162,27 @@ Watch demo on portainer: https://www.youtube.com/watch?v=ZrEllmXDiwo
 
 ## Healthchecks
 
+Read docker healthchecks from: https://docs.docker.com/engine/reference/builder/ 
 
+For example:
+```bash
+
+HEALTHCHECK --interval=5m --timeout=3s \
+  CMD curl -f http://localhost/ || exit 1
+
+```
 
 ---
 
 ## Debugging Swarm
 
+Please get to know to https://docs.docker.com/engine/swarm/admin_guide/ 
 
 ---
 
 
 ## Installing updates on the physical/virtual machine
+
 
 
 ---
