@@ -152,6 +152,9 @@ Server: Docker/18.09.2 (linux)
 Portainer is a lightweight management toolset that allows you to easily build, manage and maintain Docker environments. 
 
 https://www.portainer.io
+https://www.portainer.io/installation/ 
+
+Watch demo on portainer: https://www.youtube.com/watch?v=ZrEllmXDiwo
 
 
 

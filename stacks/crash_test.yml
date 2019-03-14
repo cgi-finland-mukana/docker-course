@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+
+  # Crash test
+  crash_test:
+    # build first -> $ docker build -t local/crash_test .
+    image: local/crash_test:latest
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        # parallelism (how many containers will be updated at the same time)
+        parallelism: 1
+        # delay (time to wait between updating the containers)
+        delay: 30s
+        # failure_actionL: rollback, pause, continue
+        failure_action: rollback
+      restart_policy:
+        # max_attempts (how many times will be retried before giving up)
+        max_attempts: 3
+        # condition (when to do a restart)
+        condition: on-failure
+    networks:
+      - pasinet
+
+
+# Create network pasinet
+networks:
+  pasinet:
