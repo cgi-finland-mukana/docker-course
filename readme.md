@@ -107,18 +107,69 @@ If the node cannot connect to swarm, check that the host is able to connect to t
 
 ## Important locations on the filesystem
 
-write
+- /var/lib/docker (default location for docker's metadata)
+- /etc/docker/ (contains docker's 'daemon.json' config file)
+- ~/.docker/config.json (per user auth config)
+- /var/run/docker.sock (Docker's UNIX Socket for connections to Engine API)
 
 ---
 
 ## Docker Engine API
 
-write
+
+The daemon listens on unix:///var/run/docker.sock but you can Bind Docker to another host/port or a Unix socket.
+The API tends to be REST. However, for some complex commands, like attach or pull, the HTTP connection is hijacked to transport stdout, stdin and stderr.
+A Content-Length header should be present in POST requests to endpoints that expect a body.
+To lock to a specific version of the API, you prefix the URL with the version of the API to use. For example, /v1.18/info. If no version is included in the URL, the maximum supported API version is used.
+If the API version specified in the URL is not supported by the daemon, a HTTP 400 Bad Request error message is returned.
+
+### Example connection to API with Netcat
+
+```bash
+
+Pasis-MacBook-Pro:~ pasi$ nc -U /var/run/docker.sock
+GET /v1.37/images/json HTTP/1.1
+Host: localhost
+
+HTTP/1.1 200 OK
+Api-Version: 1.39
+Content-Length: 331
+Content-Type: application/json
+Date: Thu, 14 Mar 2019 05:45:52 GMT
+Docker-Experimental: false
+Ostype: linux
+Server: Docker/18.09.2 (linux)
+
+[{"Containers":-1,"Created":1546306167,"Id":"sha256:fce289e99eb9bca977dae136fbe2a82b6b7d4c372474c9235adc1741675f587e","Labels":null,"ParentId":"","RepoDigests":["hello-world@sha256:2557e3c07ed1e38f26e389462d03ed943586f744621577a99efb77324b0fe535"],"RepoTags":["hello-world:latest"],"SharedSize":-1,"Size":1840,"VirtualSize":1840}]
+
+```
+
 
 ---
 
 ## Managing Docker through web UI
 
-- Portainer
+Portainer is a lightweight management toolset that allows you to easily build, manage and maintain Docker environments. 
+
+https://www.portainer.io
+
+
+
+---
+
+## Healthchecks
+
+
+
+---
+
+## Debugging Swarm
+
+
+---
+
+
+## Installing updates on the physical/virtual machine
+
 
 ---
